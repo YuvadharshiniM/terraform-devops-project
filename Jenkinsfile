@@ -33,9 +33,11 @@ pipeline {
 
         stage('Build & Push to Docker Hub') {
             steps {
-                sh 'echo $DOCKER_HUB_CREDS_PSW | docker login -u $DOCKER_HUB_USER --password-stdin'
-                sh 'docker build -t $DOCKER_HUB_USER/$DOCKER_IMAGE:latest .'
-                sh 'docker push $DOCKER_HUB_USER/$DOCKER_IMAGE:latest'
+                withCredentials([usernamePassword(credentialsId: 'docker-hub-creds', usernameVariable: 'DUSER', passwordVariable: 'DPASS')]) {
+                    sh "echo '$DPASS' | docker login -u '$DUSER' --password-stdin"
+                    sh "docker build -t $DUSER/$DOCKER_IMAGE:latest ."
+                    sh "docker push $DUSER/$DOCKER_IMAGE:latest"
+                }
             }
         }
 
