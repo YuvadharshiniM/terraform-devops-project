@@ -33,7 +33,7 @@ pipeline {
 
         stage('Build & Push to Docker Hub') {
             steps {
-                sh 'docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_CREDS'
+                sh 'echo $DOCKER_HUB_CREDS_PSW | docker login -u $DOCKER_HUB_USER --password-stdin'
                 sh 'docker build -t $DOCKER_HUB_USER/$DOCKER_IMAGE:latest .'
                 sh 'docker push $DOCKER_HUB_USER/$DOCKER_IMAGE:latest'
             }
