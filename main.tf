@@ -82,5 +82,14 @@ resource "aws_instance" "devops_vm" {
   vpc_security_group_ids = [aws_security_group.devops_sg.id]
   key_name      = var.key_name
 
+  user_data = <<-EOF
+              #!/bin/bash
+              sudo apt update
+              sudo apt install -y docker.io
+              sudo systemctl start docker
+              sudo systemctl enable docker
+              sudo docker run -d -p 80:80 yuvadharshinim/my-portfolio:latest
+              EOF
+
   tags = { Name = "DevOps-Server" }
 }
