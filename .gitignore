@@ -1,0 +1,15 @@
+# Terraform files
+.terraform/
+*.tfstate
+*.tfstate.backup
+.terraform.lock.hcl
+
+# Secrets and Keys
+*.pem
+
+# Python files
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
