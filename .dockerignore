@@ -1,0 +1,7 @@
+.terraform/
+.git/
+terraform.tfstate*
+.terraform.lock.hcl
+*.pem
+ Jenkinsfile
+ README.md
